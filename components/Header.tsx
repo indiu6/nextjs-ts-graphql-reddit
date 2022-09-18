@@ -13,6 +13,7 @@ import {
   SparklesIcon,
   MegaphoneIcon,
   VideoCameraIcon,
+  Bars3Icon,
 } from '@heroicons/react/24/outline';
 
 function Header() {
@@ -56,6 +57,23 @@ function Header() {
         <BellIcon className="icon" />
         <PlusIcon className="icon" />
         <MegaphoneIcon className="icon" />
+      </div>
+      <div className="ml-5 flex items-start lg:hidden">
+        <Bars3Icon className="icon" />
+      </div>
+
+      {/* Sign in / out btn */}
+      <div className="hidden items-center lg:flex cursor-pointer space-x-2 border border-gray-100 p-2 ">
+        <div className="relative h-5 w-5 flex-shrink-0">
+          <Image
+            src="https://cdn.worldvectorlogo.com/logos/reddit-2.svg"
+            alt="reddit icon"
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+
+        <p className="text-gray-400">Sign In</p>
       </div>
     </div>
   );
