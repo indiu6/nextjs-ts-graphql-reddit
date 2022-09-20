@@ -1,7 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Reddit 2.0 
-Built with NEXT.JS (React, PostgreSQL, Supabase, StepZen, GraphQL, TypeScript, Tailwind)
+Built with NEXT.JS 
+- React
+- PostgreSQL
+- Supabase (Open source Firebase alternative. Postgres database, Authentication, instant APIs, Edge Functions, Realtime subscriptions, Storage)
+- StepZen (Build GraphQL Easily Optimize & Scale GraphQL Automatically)
+- GraphQL
+- TypeScript
+- Tailwind
 
 ## Getting Started
 
