@@ -1,6 +1,10 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['links.papareact.com', 'cdn.worldvectorlogo.com'],
+    domains: [
+      'avatars.dicebear.com',
+      'links.papareact.com',
+      'cdn.worldvectorlogo.com',
+    ],
   },
 };

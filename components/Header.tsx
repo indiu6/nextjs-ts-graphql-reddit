@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 import {
   ChevronDownIcon,
   HomeIcon,
@@ -38,10 +37,7 @@ function Header() {
       </div>
 
       {/* search box */}
-      <form
-        action=""
-        className="flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1"
-      >
+      <form className="flex flex-1 items-center space-x-2 border border-gray-200 rounded-sm bg-gray-100 px-3 py-1">
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input
           className="flex-1 bg-transparent outline-none"
