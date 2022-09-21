@@ -13,6 +13,7 @@ const Home: NextPage = () => {
 
       {/* PostBox */}
       <PostBox />
+
       <div>{/* Feed */}</div>
     </div>
   );
