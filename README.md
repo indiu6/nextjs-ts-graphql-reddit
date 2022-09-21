@@ -2,11 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Reddit 2.0 
 Built with NEXT.JS 
-- React
+- React, react-hook-form
 - PostgreSQL
 - Supabase (Open source Firebase alternative. Postgres database, Authentication, instant APIs, Edge Functions, Realtime subscriptions, Storage)
 - StepZen (Build GraphQL Easily Optimize & Scale GraphQL Automatically)
-- GraphQL
+- GraphQL, apollo-client
 - TypeScript
 - Tailwind
 
@@ -18,6 +18,8 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
+# then run Stepzen for GraphQL
+stepzen start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
