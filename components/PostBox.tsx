@@ -3,6 +3,10 @@ import { useSession } from 'next-auth/react';
 import Avatar from './Avatar';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_POST, ADD_SUBREDDIT } from '../graphql/mutaions';
+import client from '../apollo-client';
+import { GET_SUBREDDIT_BY_TOPIC } from '../graphql/queries';
 
 type FormData = {
   postTitle: string;
@@ -14,6 +18,8 @@ type FormData = {
 const PostBox = () => {
   const { data: session } = useSession();
   const [imageBoxOpen, setImageBoxOpen] = useState<boolean>(false);
+  const [addPost] = useMutation(ADD_POST);
+  const [addSubreddit] = useMutation(ADD_SUBREDDIT);
 
   const {
     register,
@@ -24,6 +30,26 @@ const PostBox = () => {
 
   const onSubmit = handleSubmit(async (formData) => {
     console.log(formData);
+
+    try {
+      // Query for the subreddit topic
+      const {
+        data: { getSubredditListByTopic },
+      } = await client.query({
+        query: GET_SUBREDDIT_BY_TOPIC,
+        variables: {
+          topic: formData.subreddit,
+        },
+      });
+
+      const subredditExists = getSubredditListByTopic.length > 0;
+
+      if (!subredditExists) {
+        // create subreddit
+      } else {
+        // use existing subreddit
+      }
+    } catch (error) {}
   });
 
   return (
@@ -55,7 +81,7 @@ const PostBox = () => {
         <div className="flex flex-col py-2">
           {/* Body */}
           <div className="flex items-center px-2">
-            <p className="min-w-[90px]">Body</p>
+            <p className="min-w-[90px]">Body:</p>
             <input
               className="m-2 flex-1 bg-blue-50 p-2 outline-none"
               {...register('postBody')}
@@ -66,7 +92,7 @@ const PostBox = () => {
 
           {/* Subreddit */}
           <div className="flex items-center px-2">
-            <p className="min-w-[90px]">Subreddit</p>
+            <p className="min-w-[90px]">Subreddit:</p>
             <input
               className="m-2 flex-1 bg-blue-50 p-2 outline-none"
               {...(register('subreddit'), { required: true })}
