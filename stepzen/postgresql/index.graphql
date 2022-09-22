@@ -14,18 +14,30 @@ type Comment {
 type Post {
   body: String
   commentList: [Comment] @materializer(query: "getCommentUsingPost_id")
+  comments: [Comment]
+    @materializer(
+      query: "getCommentByPost_id"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
   created_at: DateTime
   id: ID!
   image: String
-  subreddit: Subreddit
+  # subreddit: Subreddit
+  subreddit: [Subreddit]
     @materializer(
-      query: "getSubreddit"
+      # query: "getSubreddit"
+      query: "getSubredditListById"
       arguments: [{ name: "id", field: "subreddit_id" }]
     )
   subreddit_id: ID
   title: String
   username: String
   voteList: [Vote] @materializer(query: "getVoteUsingPost_id")
+  votes: [Vote]
+    @materializer(
+      query: "getVotesByPost_id"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
 }
 
 type Subreddit {
@@ -90,6 +102,19 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+  # Custom
+  getCommentByPost_id(post_id: ID!): [Comment]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."created_at", T."id", T."post_id", T."text", T."username"
+        FROM "public"."comment" T
+        WHERE T."post_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+
   getVoteUsingPost_id(id: ID!): [Vote]
     @dbquery(
       type: "postgresql"
@@ -100,6 +125,20 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+  # Custom
+  getVotesByPost_id(post_id: ID!): [Vote]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."created_at", T."id", T."post_id", T."upvote", T."username"
+        FROM "public"."vote" T
+        WHERE T."post_id" = $1
+        order by "created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
+
   getSubredditList: [Subreddit]
     @dbquery(
       type: "postgresql"
@@ -107,15 +146,28 @@ type Query {
       table: "subreddit"
       configuration: "postgresql_config"
     )
+
+  # Custom
   getSubredditListByTopic(topic: String!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      # select * from "subreddit" where "topic" = $1
+      """
+      configuration: "postgresql_config"
+    )
+
+  # Custom
+  getSubredditListById(id: String!): [Subreddit]
     @dbquery(
       type: "postgresql"
       schema: "public"
       query: """
-      select * from "subreddit" where "topic" = $1
+      select * from "subreddit" where "id" = $1
       """
       configuration: "postgresql_config"
     )
+
   getSubreddit(id: ID!): Subreddit
     @dbquery(
       type: "postgresql"

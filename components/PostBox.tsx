@@ -45,8 +45,9 @@ const PostBox = () => {
         },
       });
 
+      console.log('getSubredditListByTopic', getSubredditListByTopic);
+      //! err - getSubredditListByTopic is always null
       const subredditExists = getSubredditListByTopic.length > 0;
-      console.log('subredditExists', subredditExists);
 
       if (!subredditExists) {
         // create subreddit
