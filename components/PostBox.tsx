@@ -23,6 +23,7 @@ const PostBox = () => {
 
   const {
     register,
+    setValue,
     handleSubmit,
     watch,
     formState: { errors },
@@ -32,7 +33,7 @@ const PostBox = () => {
     console.log(formData);
 
     try {
-      // Query for the subreddit topic
+      // query for the subreddit topic
       const {
         data: { getSubredditListByTopic },
       } = await client.query({
@@ -46,9 +47,59 @@ const PostBox = () => {
 
       if (!subredditExists) {
         // create subreddit
+        console.log('Subreddit is new! -> creating a NEW subreddit!');
+
+        const {
+          data: { insertSubreddit: newSubreddit },
+        } = await addSubreddit({
+          variables: {
+            topic: formData.subreddit,
+          },
+        });
+
+        console.log('Creating post...', formData);
+        const image = formData.postImage || '';
+
+        const {
+          data: { insertPost: newPost },
+        } = await addPost({
+          variables: {
+            body: formData.postBody,
+            image: image,
+            subreddit_id: newSubreddit.id,
+            title: formData.postTitle,
+            username: session?.user?.name,
+          },
+        });
+
+        console.log('New post added: ', newPost);
       } else {
         // use existing subreddit
+        console.log('Using existing subreddit!');
+        console.log(getSubredditListByTopic);
+
+        const image = formData.postImage || '';
+
+        const {
+          data: { insertPost: newPost },
+        } = await addPost({
+          variables: {
+            body: formData.postBody,
+            image: image,
+            subreddit_id: getSubredditListByTopic[0].id,
+            title: formData.postTitle,
+            username: session?.user?.name,
+          },
+        });
+
+        console.log('New post added: ', newPost);
       }
+
+      // after the post has been added
+      setValue('postBody', '');
+      setValue('postImage', '');
+      setValue('postTitle', '');
+      setValue('subreddit', '');
     } catch (error) {}
   });
 
