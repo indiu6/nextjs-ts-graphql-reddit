@@ -19,6 +19,7 @@ npm run dev
 # or
 yarn dev
 # then run Stepzen for GraphQL
+cd stepzen
 stepzen start
 ```
 
