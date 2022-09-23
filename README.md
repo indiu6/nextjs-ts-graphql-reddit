@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Reddit 2.0 
 Built with NEXT.JS 
-- React, react-hook-form, react-hot-toast
+- React, react-hook-form, react-hot-toast, react-timeago
 - PostgreSQL
 - Supabase (Open source Firebase alternative. Postgres database, Authentication, instant APIs, Edge Functions, Realtime subscriptions, Storage)
 - StepZen (Build GraphQL Easily Optimize & Scale GraphQL Automatically)
