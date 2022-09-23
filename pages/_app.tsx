@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import { ApolloProvider } from '@apollo/client';
 import client from '../apollo-client';
 import { Toaster } from 'react-hot-toast';
+import { Post } from '../components/Post';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

@@ -10,8 +10,8 @@ export const GET_SUBREDDIT_BY_TOPIC = gql`
   }
 `;
 
-export const GET_ALL_POST = gql`
-  query MyQuery($topic: String!) {
+export const GET_ALL_POSTS = gql`
+  query MyQuery {
     getPostList {
       body
       created_at
@@ -20,6 +20,25 @@ export const GET_ALL_POST = gql`
       title
       subreddit_id
       username
+      comments {
+        created_at
+        id
+        post_id
+        text
+        username
+      }
+      subreddit {
+        id
+        topic
+        created_at
+      }
+      votes {
+        created_at
+        id
+        post_id
+        upvote
+        username
+      }
     }
   }
 `;
