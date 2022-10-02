@@ -1,6 +1,15 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  BookmarkIcon,
+  ChatBubbleLeftIcon,
+  EllipsisHorizontalIcon,
+  GiftIcon,
+  ShareIcon,
+} from '@heroicons/react/24/outline'
 import Avatar from './Avatar'
 import TimeAgo from 'react-timeago'
+import Image from 'next/image'
 
 type Props = {
   post: Post
@@ -36,8 +45,30 @@ export const Post = ({ post }: Props) => {
         </div>
 
         {/* Image */}
+        <img className="w-full" src={post.image} alt="post pic" />
 
         {/* Footer */}
+        <div className="flex space-x-4 text-gray-400">
+          <div className="postButtons">
+            <ChatBubbleLeftIcon className="h-6 w-6" />
+            <p className="">{post.comments.length} Comments</p>
+          </div>
+          <div className="postButtons">
+            <GiftIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">{post.comments.length} Award</p>
+          </div>
+          <div className="postButtons">
+            <ShareIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">{post.comments.length} Sahre</p>
+          </div>
+          <div className="postButtons">
+            <BookmarkIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">{post.comments.length} Save</p>
+          </div>
+          <div className="postButtons">
+            <EllipsisHorizontalIcon className="h-6 w-6" />
+          </div>
+        </div>
       </div>
     </div>
   )
